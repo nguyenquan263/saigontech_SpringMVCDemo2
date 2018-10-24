@@ -1,0 +1,28 @@
+package vn.edu.saigontech.SpringMVCDemo.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import vn.edu.saigontech.SpringMVCDemo.daos.studentDAO;
+import vn.edu.saigontech.SpringMVCDemo.models.Student;
+
+@RestController
+public class studentController {
+	@Autowired
+	private studentDAO studentDAO;
+	
+	@RequestMapping(value = "/StudentREST", method = RequestMethod.GET)
+	public List<Student> getAllStudent(){
+		return studentDAO.getAllStudent();
+	}
+	
+	@RequestMapping(value = "/StudentREST/{id}", method = RequestMethod.GET)
+	public Student getAllStudent(@PathVariable int id){
+		return studentDAO.getStudentByID(id);
+	}
+}
