@@ -27,9 +27,7 @@ public class studentDAO {
 		
 		List<Student> stuArr = query.list();
 		
-		for (Student stu: stuArr) {
-			stu.setSpecialization(specializationDAO.getSpecializationByID(stu.getSpecialization().getId()));
-		}
+
 		
 		return stuArr;
 	}
@@ -58,5 +56,43 @@ public class studentDAO {
 		stu.setSpecialization(specializationDAO.getSpecializationByID(stu.getSpecialization().getId()));
 		
 		return stu;
+	}
+	
+	public Student addStudent(Student stu) {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+
+			session.persist(stu);
+
+			return stu;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public String deleteStudent(int id) {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+
+			Student targetStu = getStudentByID(id);
+
+			session.delete(targetStu);
+
+			return "Delete successfully";
+		} catch (Exception e) {
+			return "Delete unsuccessfully";
+		}
+	}
+
+	public Student updateStudent(Student targetStu) {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+
+			session.merge(targetStu);
+			
+			return targetStu;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

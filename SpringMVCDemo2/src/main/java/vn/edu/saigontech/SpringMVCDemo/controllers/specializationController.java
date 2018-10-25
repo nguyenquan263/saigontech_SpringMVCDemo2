@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,10 +29,31 @@ public class specializationController {
 	}
 	
 	@RequestMapping(value = "/SpecializationREST/{id}", method = RequestMethod.GET)
-	public Specialization getAllSpec(@PathVariable int id){
+	public Specialization getSpecByID(@PathVariable int id){
 		
 		
 		return specializationDAO.getSpecializationByID(id);
+	}
+	
+	@RequestMapping(value = "/SpecializationREST", method = RequestMethod.POST)
+	public Specialization addSpec(@RequestBody Specialization newSpec ){
+		
+		
+		return specializationDAO.addSpecialization(newSpec);
+	}
+	
+	@RequestMapping(value = "/SpecializationREST/{id}", method = RequestMethod.DELETE)
+	public String deleteSpec(@PathVariable int id){
+		
+		
+		return specializationDAO.deleteSpecialization(id);
+	}
+	
+	@RequestMapping(value = "/SpecializationREST", method = RequestMethod.PUT)
+	public Specialization updateSpec(@RequestBody Specialization targetSpec ){
+		
+		
+		return specializationDAO.updateSpecialization(targetSpec);
 	}
 	
 }
